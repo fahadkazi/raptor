@@ -4,7 +4,7 @@ import config from '../config/const'
 
 export default React.createClass({
 	render() {
-		return <div>
+		return <div className="main-container">
 					<Movies />
 				</div>
 	}
@@ -44,23 +44,21 @@ class Movies extends React.Component {
 			<div className="mdl-grid">
 	          {this.state.moviesData.map((data, index) =>
 	          	<div key={'mykey' + index} className="mdl-cell mdl-cell--2-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
-		          	<div className="mdl-card mdl-shadow--2dp demo-card-wide">
-				      <div className="mdl-card__title" style={{background: 'url(' + this.state.imgUrl + this.state.postSize + data.poster_path + ') center / cover'}}>
-				        <h2 className="mdl-card__title-text">{data.title}</h2>
-				      </div>
-				      <div className="mdl-card__supporting-text">
-				      	{ data.release_date }
-				      </div>
-				      <div className="mdl-card__actions mdl-card--border">
-				        <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-				          Book Now
-				        </button>
-				      </div>
-				      <div className="mdl-card__menu">
-				        <button className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-				          <i className="material-icons">share</i>
-				        </button>
-				      </div>
+		          	<div className="mdl-card demo-card-wide">
+						<div className="mdl-card__title mdl-shadow--2dp" style={{background: 'url(' + this.state.imgUrl + this.state.postSize + data.poster_path + ') center / cover'}}>
+							<span>{ data.vote_average }</span>
+						</div>
+						<h2 className="">
+							{ data.title }
+						</h2>
+						<div className="mdl-card__supporting-text">
+							{ data.release_date }
+						</div>
+						<div className="mdl-card__menu">
+							<button className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+							  <i className="material-icons">share</i>
+							</button>
+						</div>
 				    </div>
 				</div>
 	          )}
