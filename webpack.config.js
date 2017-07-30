@@ -1,5 +1,5 @@
 module.exports = {
-    entry: "./js/app.js",
+    entry: "./app.js",
     module: {
         loaders: [{
             test: /.js?$/,
