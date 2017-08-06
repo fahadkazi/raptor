@@ -1,51 +1,30 @@
 import React from 'react'
 import axios from 'axios'
-import config from '../config/const'
+import { connect } from "react-redux"
+import { getConfig } from "../actions/configAction"
+import { getMovies } from "../actions/popularActions"
 
-export default React.createClass({
-	render() {
-		return <div className="main-container">
-					<Movies />
-				</div>
-	}
-});
-
-class Movies extends React.Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			moviesData: []
-		}
-	}
+export class Movies extends React.Component {
 
 	componentDidMount() {
-		axios.get(config.API_URL + 'configuration?api_key=' + config.API_KEY)
-			.then(res => {
-				console.log('conf', res);
-				let imgUrl = res.data.images.base_url;
-				let postSize = res.data.images.poster_sizes[4];
-				this.setState({ imgUrl, postSize });
-			})
-		axios.get('https://api.themoviedb.org/3/movie/popular?api_key=' + config.API_KEY + '&language=en-US&page=1')
-			.then(res => {
-				console.log('mov', res);
-				let moviesData = res.data.results.map(function(value, key) {
-					return value;
-				})
+		this.props.dispatch(getConfig());
+		this.props.dispatch(getMovies());
 
-				this.setState({ moviesData });
-			})
+		// const baseUrl = this.props.config.base_url;
+
+		// console.log('base', baseUrl);
 	}
 
 	render() {
-		console.log('state', this.state);
+		debugger;
+		console.log('state props', this.props.config);
 		return (
+			<div className="main-container">
 			<div className="mdl-grid">
-	          {this.state.moviesData.map((data, index) =>
+	          {this.props.movies.map((data, index) =>
 	          	<div key={'mykey' + index} className="mdl-cell mdl-cell--2-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
 		          	<div className="mdl-card demo-card-wide">
-						<div className="mdl-card__title mdl-shadow--2dp" style={{background: 'url(' + this.state.imgUrl + this.state.postSize + data.poster_path + ') center / cover'}}>
+						<div className="mdl-card__title mdl-shadow--2dp" style={{background: 'url(' + this.props.config.base_url + this.props.config.poster_sizes[4] + data.poster_path + ') center / cover'}}>
 							<span>{ data.vote_average }</span>
 						</div>
 						<h2 className="">
@@ -61,8 +40,20 @@ class Movies extends React.Component {
 						</div>
 				    </div>
 				</div>
-	          )}
+	          	)}
+	      	</div>
 	      	</div>
 		);
 	}
 }
+
+const mapStateToProps = (state) => {
+   console.log("mapStateToProps for movies");
+   console.log("satate here", state);
+   return {
+       movies: state.popular.data,
+       config: state.config.data.images
+   };
+};
+
+export default connect(mapStateToProps)(Movies);
