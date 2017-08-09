@@ -1,11 +1,11 @@
 import axios from 'axios'
-import config from '../config/const'
+import { POPULAR_MOVIES } from '../config/const'
 
 export function getMovies() {
     return (dispatch, getState) => {
         dispatch({type : "FETCH_POPULAR_STARTED"});
         
-        axios.get(config.POPULAR_MOVIES)
+        axios.get(POPULAR_MOVIES)
             .then(response => { console.log('res', response.data.results); dispatch({type : "FETCH_POPULAR_DONE", payload : response.data.results}) })
             .catch(error => { dispatch({type : "FETCH_POPULAR_ERROR", error : error}); })
     };

@@ -1,8 +1,6 @@
-const config = {
-	API_URL: 'https://api.themoviedb.org/3/',
-	API_KEY: '79b4568b1f35d0fc04d07ffb95efe0d4',
-	POPULAR_MOVIES: 'https://api.themoviedb.org/3/movie/popular?api_key=79b4568b1f35d0fc04d07ffb95efe0d4&language=en-US&page=1',
-	CONFIG: 'https://api.themoviedb.org/3/configuration?api_key=79b4568b1f35d0fc04d07ffb95efe0d4'
-}
+export const API_URL = 'https://api.themoviedb.org/3/';
+export const API_KEY = '79b4568b1f35d0fc04d07ffb95efe0d4';
+export const POPULAR_MOVIES = API_URL + 'movie/popular?api_key=' + API_KEY + '&language=en-US&page=1';
+export const CONFIG = API_URL + 'configuration?api_key=' + API_KEY;
 
-export default config
+// export {API_URL, API_KEY, POPULAR_MOVIES, CONFIG}
