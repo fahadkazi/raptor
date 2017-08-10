@@ -49,7 +49,7 @@ export class Movies extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-	    addFavorite: (data) => dispatch(addFavorite(data));
+	    addFavorite: (data) => dispatch(addFavorite(data))
     }
 }
 
