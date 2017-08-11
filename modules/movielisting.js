@@ -3,18 +3,24 @@ import axios from 'axios'
 import { connect } from "react-redux"
 import { getConfig } from "../actions/configAction"
 import { getMovies } from "../actions/popularActions"
-import { addFavorite } from "../actions/favoriteActions"
+import { favoriteMovie } from "../actions/favoriteActions"
 
 export class Movies extends React.Component {
+
+	constructor(props) {
+	    super(props)
+	    this.handleChange = this.handleChange.bind(this)
+	}
 
 	componentDidMount() {
 		this.props.dispatch(getConfig());
 		this.props.dispatch(getMovies());
 	}
 
-	addFavorite(data) {
-
-	}
+	handleChange(event) {
+	    this.props.dispatch(favoriteMovie(event.target.title))
+	    console.log('title id', event.target.title)
+	 }
 
 	render() {
 		console.log('state props', this.props.config);
@@ -35,7 +41,7 @@ export class Movies extends React.Component {
 						</div>
 						<div className="mdl-card__menu">
 							<button className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-							  <i title={data.id} onClick={this.addFavorite.bind(this)} className="material-icons">share</i>
+							  <i title={data.id} onClick={this.handleChange} className="material-icons">share</i>
 							</button>
 						</div>
 				    </div>
@@ -47,19 +53,14 @@ export class Movies extends React.Component {
 	}
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-	    addFavorite: (data) => dispatch(addFavorite(data))
-    }
-}
-
 const mapStateToProps = (state) => {
-   console.log("mapStateToProps for movies");
-   console.log("satate here", state);
-   return {
+   	console.log("mapStateToProps for movies");
+   	console.log("satate here", state);
+   	return {
        movies: state.popular.data,
-       config: state.config.data.images
-   };
+       config: state.config.data.images,
+       favorite: state.favorite.data
+   	};
 };
 
 export default connect(mapStateToProps)(Movies);

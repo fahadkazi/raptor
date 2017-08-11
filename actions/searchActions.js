@@ -6,7 +6,7 @@ export function searchMovie(query) {
 		dispatch({type: "FETCH_SEARCH_STARTED"});
 
 		axios.get(SEARCH_MOVIES + '&query=' + query)
-		.then(response => { console.log('search', response); dispatch({type: "FETCH_SEARCH_DONE", payload: response.data}) })
+		.then(response => { console.log('search', response); dispatch({type: "FETCH_POPULAR_DONE", payload: response.data.results}) })
 		.catch(error => { dispatch({type: "FETCH_SEARCH_ERROR", error: error}) })
 	}
 }

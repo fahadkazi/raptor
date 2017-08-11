@@ -6,13 +6,13 @@ export default function reducer(state={
   }, action) {
 
     switch (action.type) {
-      case "FETCH_SEARCH_STARTED": {
+      case "FETCH_FAVORITE_STARTED": {
         return {...state, fetching: true}
       }
-      case "FETCH_SEARCH_ERROR": {
+      case "FETCH_FAVORITE_ERROR": {
         return {...state, fetching: false, error: action.payload}
       }
-      case "FETCH_POPULAR_DONE": {
+      case "FETCH_FAVORITE_DONE": {
         return {
           ...state,
           fetching: false,

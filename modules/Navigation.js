@@ -2,21 +2,26 @@
 
 import React from 'react'
 import axios from 'axios'
+import { connect } from 'react-redux'
 import { SEARCH_MOVIES } from '../config/const'
 import { Link } from 'react-router'
 import { searchMovie } from '../actions/searchActions'
 
-export default React.createClass({
-  handleKeyPress(event) {
-	  if(event.key == 'Enter'){
-			axios.get(SEARCH_MOVIES + '&query=abc')
-			.then(response => { console.log('search', response); })
-			.catch(error => { dispatch({type: "FETCH_SEARCH_ERROR", error: error}) })
-	    // this.props.dispatch(searchMovie());
-	  }
-	},
-  render() {
-    return (
+class Navigation extends React.Component{
+	constructor(props) {
+		super(props)
+		this.handleChange = this.handleChange.bind(this)
+	}
+
+	handleChange(event) {
+		if (event.key === 'Enter') {
+			this.props.dispatch(searchMovie(event.target.value))
+		}
+		// alert('fsfdsdf');
+	}
+	render() {
+		const { query } = this.props
+		return (
 			<div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 			  <header className="mdl-layout__header">
 			    <div className="mdl-layout__header-row">
@@ -30,7 +35,7 @@ export default React.createClass({
 				      <i className="material-icons">search</i>
 				    </label>
 				    <div className="mdl-textfield__expandable-holder">
-				      <input className="mdl-textfield__input" type="text" id="search-expandable" onKeyPress={this.handleKeyPress} />
+				      <input className="mdl-textfield__input" type="text" id="search-expandable" value={query} onKeyPress={this.handleChange} />
 				      <label className="mdl-textfield__label" htmlFor="search-expandable">Search text</label>
 				    </div>
 				  </div>
@@ -45,5 +50,16 @@ export default React.createClass({
 			  {this.props.children || <movielisting />}
 			</div>
 		)
-  }
-});
+	}
+}
+
+function mapStateToProps(state) {
+	console.log('stttt', state);
+  	return {
+    	movies: state.popular.data,
+       config: state.config.data.images,
+       favorite: state.favorite.data
+  	}
+}
+
+export default connect(mapStateToProps)(Navigation)
