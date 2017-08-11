@@ -17,7 +17,7 @@ export default function reducer(state={
           ...state,
           fetching: false,
           fetched: true,
-          data: action.payload,
+          data: state.data.concat(action.payload)
         }
       }
     }

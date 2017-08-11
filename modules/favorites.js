@@ -15,24 +15,26 @@ export class Favorites extends React.Component {
 		return (
 			<div className="main-container">
 			<div className="mdl-grid">
-	          	<div className="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
+				{this.props.favorite.map((data, index) =>
+	          	<div key={'mykey' + index} className="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
 		          	<div className="mdl-card demo-card-wide">
-						<div className="mdl-card__title mdl-shadow--2dp" style={{background: 'url(' + this.props.config.base_url + this.props.config.poster_sizes[4] + this.props.favorite.poster_path + ') center / cover'}}>
-							<span>{ this.props.favorite.vote_average }</span>
+						<div className="mdl-card__title mdl-shadow--2dp" style={{background: 'url(' + this.props.config.base_url + this.props.config.poster_sizes[4] + data.poster_path + ') center / cover'}}>
+							<span>{ data.vote_average }</span>
 						</div>
 						<h2 className="">
-							{ this.props.favorite.title }
+							{ data.title }
 						</h2>
 						<div className="mdl-card__supporting-text">
-							{ this.props.favorite.release_date }
+							{ data.release_date }
 						</div>
 						<div className="mdl-card__menu">
 							<button className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-							  <i className="material-icons">share</i>
+							  <i title={data.id} onClick={this.handleChange} className="material-icons">favorite_border</i>
 							</button>
 						</div>
 				    </div>
 				</div>
+	          	)}
 	      	</div>
 	      	</div>
 		);

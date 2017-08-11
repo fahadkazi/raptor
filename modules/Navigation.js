@@ -17,7 +17,6 @@ class Navigation extends React.Component{
 		if (event.key === 'Enter') {
 			this.props.dispatch(searchMovie(event.target.value))
 		}
-		// alert('fsfdsdf');
 	}
 	render() {
 		const { query } = this.props
@@ -28,6 +27,7 @@ class Navigation extends React.Component{
 			      <span className="mdl-layout-title header-title">BMS</span>
 			      <div className="mdl-layout-spacer"></div>
 			      <nav className="mdl-navigation mdl-layout--large-screen-only">
+			      	<Link className="mdl-navigation__link" to='/'>Movies</Link>
 			      	<Link className="mdl-navigation__link" to='/favorites'>Favorites</Link>
 			      </nav>
 				  <div className="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
@@ -44,6 +44,7 @@ class Navigation extends React.Component{
 			  <div className="mdl-layout__drawer">
 			    <span className="mdl-layout-title">BMS</span>
 			    <nav className="mdl-navigation">
+				    <Link className="mdl-navigation__link" to='/'>Movies</Link>
 			      	<Link className="mdl-navigation__link" to='/favorites'>Favorites</Link>
 			    </nav>
 			  </div>
@@ -54,7 +55,6 @@ class Navigation extends React.Component{
 }
 
 function mapStateToProps(state) {
-	console.log('stttt', state);
   	return {
     	movies: state.popular.data,
        config: state.config.data.images,

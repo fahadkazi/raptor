@@ -23,7 +23,6 @@ export class Movies extends React.Component {
 	 }
 
 	render() {
-		console.log('state props', this.props.config);
 		return (
 			<div className="main-container">
 			<div className="mdl-grid">
@@ -41,7 +40,7 @@ export class Movies extends React.Component {
 						</div>
 						<div className="mdl-card__menu">
 							<button className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-							  <i title={data.id} onClick={this.handleChange} className="material-icons">share</i>
+							  <i title={data.id} onClick={this.handleChange} className="material-icons">favorite_border</i>
 							</button>
 						</div>
 				    </div>
